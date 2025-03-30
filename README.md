@@ -28,7 +28,7 @@
 
 I am a passionate web developer with a strong background in Computer Science. My professional experience spans across various programming languages, databases, and operating systems. Recently, I completed an intensive web development program at CareerFoundry, where I applied my knowledge to several challenging projects, further honing my expertise in both frontend and backend development.
 
-## ** Important Projects **
+## **Important Projects**
 
 ### **Project 1: Responsive Web Design**
 - **Description:** Developed responsive and accessible websites using HTML5, CSS3, and JavaScript. Ensured that the designs were mobile-friendly and adhered to modern web standards.
