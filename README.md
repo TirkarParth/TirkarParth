@@ -24,9 +24,9 @@
   </a> 
 </p>
 
-## **About Me**
+# About Me
 
-I am a passionate web developer with a strong background in Computer Science. My professional experience spans across various programming languages, databases, and operating systems. Recently, I completed an intensive web development program at CareerFoundry, where I applied my knowledge to several challenging projects, further honing my expertise in both frontend and backend development.
+I am a passionate web developer with a strong background in Computer Science. My professional experience spans various programming languages, databases, and operating systems. Recently, I completed an intensive web development program at CareerFoundry, where I applied my knowledge to several challenging projects, further honing my expertise in both frontend and backend development.
 
 ## 🚀 Skills & Technologies
 
@@ -35,7 +35,7 @@ I specialize in full-stack web development with experience in modern frameworks 
 ### 🖥️ Frontend Development
 - Responsive and accessible UI development.
 - Technologies: **HTML5**, **CSS3**, **JavaScript**.
-- Frameworks: **React**, **Angular**.
+- Frameworks: **React**, **Angular**, **Next.js** (specializing in eCommerce web page development).
 
 ### 🔧 Backend Development
 - RESTful API development and backend services.
@@ -57,6 +57,10 @@ I specialize in full-stack web development with experience in modern frameworks 
 ### 🤝 Team Collaboration
 - Agile methodology, version control, and team-based development.
 - Tools: **Git**, **GitHub**, **Agile Workflows**.
+
+### 🛒 eCommerce & ERP Tools
+- Experience with **Next.js** for building scalable eCommerce web applications.
+- Proficient in **JTL Wawi** for ERP and inventory management integration.
 
   
 ## **Connect with Me:**
