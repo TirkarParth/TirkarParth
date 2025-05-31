@@ -76,7 +76,6 @@ I specialize in full-stack web development with experience in modern frameworks 
 
 - 👨‍💻 All of my projects are available at [My Portfolio](https://tirkarparth.github.io/Intro-Frontend-Portfolio-Website/html/work.html)
 - 📫 How to reach me: **parthtirkar@gmail.com**
-- 📄 Know about my experiences: [About Me](https://tirkarparth.github.io/Intro-Frontend-Portfolio-Website/html/about.html)
 
 ## **Languages and Tools:**
 
