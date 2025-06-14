@@ -61,7 +61,6 @@ I specialize in full-stack web development with experience in modern frameworks 
 - Experience with **Next.js** for building scalable eCommerce web applications.
 - Proficient in **JTL Wawi** for ERP and inventory management integration.
 
-  
 ## **Connect with Me:**
 
 <p align="left">
