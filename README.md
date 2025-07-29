@@ -42,7 +42,7 @@ I specialize in full-stack web development with experience in modern frameworks 
 
 ### 🗃️ Database Management
 - NoSQL and SQL database experience.
-- Tools: **MongoDB**, **MySQL**, **SQL**.
+- Tools: **MongoDB**, **MySQL**, **SQL**. **PostgreSQL*
 
 ### ☁️ Deployment & DevOps
 - Application deployment and CI/CD configuration.
