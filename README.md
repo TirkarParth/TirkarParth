@@ -47,18 +47,6 @@
 
 ---
 
-## Stats
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=tirkarparth&show_icons=true&theme=tokyonight&hide_border=true" height="165" alt="stats" />
-  &nbsp;
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=tirkarparth&theme=tokyonight&hide_border=true" height="165" alt="streak" />
-</p>
-
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=tirkarparth&theme=tokyonight&no-frame=true&row=1&column=7" alt="trophies" />
-</p>
-
 ## ** GitHub Stats **
 <p>
   <img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=tirkarparth&show_icons=true&locale=en&layout=compact" alt="tirkarparth" />
