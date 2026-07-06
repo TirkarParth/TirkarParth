@@ -1,7 +1,7 @@
 ![MasterHead](https://raw.githubusercontent.com/muhammadnurulahsan/muhammadnurulahsan/main/ahsan.gif)
 
 <h1 align="center">Hi 👋, I'm Parth Tirkar</h1>
-<h3 align="center">Full-Stack Web Developer · React · Next.js · Node.js · TypeScript</h3>
+<h3 align="center">Full-Stack Developer · React · Next.js · Node.js · TypeScript</h3>
 
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=tirkarparth&label=Profile%20views&color=0e75b6&style=flat" alt="tirkarparth" />
