@@ -59,7 +59,8 @@ Also exploring discovery UX in [product-finder](https://github.com/TirkarParth/p
   </a>
 </p>
 
-- 👨‍💻 Portfolio: [tirkarparth.github.io](https://tirkarparth.github.io/Intro-Frontend-Portfolio-Website/html/work.html)
+- 👨‍💻 Portfolio: [tirkarparth.github.io](https://tirkarparth.github.io/PT/)
+- LinkedIn: [parth-tirkar]([https://linkedin.com/in/parth-tirkar-541a4678](https://www.linkedin.com/in/parth-tirkar/))
 - 📫 Reach me at: **parthtirkar@gmail.com**
 
 ---
