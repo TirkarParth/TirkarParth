@@ -31,6 +31,23 @@
 
 ---
 
+## Featured projects
+
+Six public projects that show different parts of how I work:
+
+| Focus | Project | What it demonstrates |
+| --- | --- | --- |
+| Full-stack product | [neue-jobs](https://github.com/TirkarParth/neue-jobs) | Location-based job search app (Vue 3 + Netlify) |
+| REST API | [movie_api](https://github.com/TirkarParth/movie_api) | Node.js REST API design and server-side logic |
+| Authentication | [myFlix-client](https://github.com/TirkarParth/myFlix-client) | Client-side auth flows against a protected API |
+| Database-backed app | [ecommerce_app](https://github.com/TirkarParth/ecommerce_app) | Node.js e-commerce with persistent data modeling |
+| Interactive UI / product | [chartfolio](https://github.com/TirkarParth/chartfolio) | TradingView-inspired charting terminal (React + TypeScript) |
+| Realtime / app architecture | [Chat-App](https://github.com/TirkarParth/Chat-App) | Messaging app structure and client architecture |
+
+Also exploring discovery UX in [product-finder](https://github.com/TirkarParth/product-finder).
+
+---
+
 ## Connect with Me
 
 <p align="left">
