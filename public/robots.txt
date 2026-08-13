@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tirkarparth.github.io/PT/sitemap.xml
