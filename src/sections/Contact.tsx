@@ -11,15 +11,19 @@ export function Contact() {
 
   const onMove = (e: React.MouseEvent) => {
     if (!circleRef.current || isMobile || reducedMotion) return
-    const rect = circleRef.current.getBoundingClientRect()
+    const el = circleRef.current
+    const rect = el.getBoundingClientRect()
     const x = e.clientX - rect.left - rect.width / 2
     const y = e.clientY - rect.top - rect.height / 2
-    circleRef.current.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px) scale(1.06)`
+    el.style.transition = 'none'
+    el.style.transform = `translate3d(${x * 0.22}px, ${y * 0.22}px, 0) scale(1.05)`
   }
 
   const onLeave = () => {
     if (!circleRef.current) return
-    circleRef.current.style.transform = 'translate(0, 0) scale(1)'
+    const el = circleRef.current
+    el.style.transition = 'transform 0.18s cubic-bezier(0.25, 1, 0.5, 1)'
+    el.style.transform = 'translate3d(0, 0, 0) scale(1)'
     setCursor('default')
   }
 
@@ -56,7 +60,7 @@ export function Contact() {
             onMouseMove={onMove}
             onMouseLeave={onLeave}
             onMouseEnter={() => setCursor('link')}
-            className="relative mx-auto lg:mx-0 flex h-44 w-44 md:h-56 md:w-56 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-white/10 to-transparent transition-transform duration-300 ease-out-expo hover:border-accent/50"
+            className="relative mx-auto lg:mx-0 flex h-44 w-44 md:h-56 md:w-56 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-white/10 to-transparent will-change-transform hover:border-accent/50"
             aria-label="Let's talk — email Parth"
           >
             <span className="text-sm tracking-[0.22em] uppercase">Let&apos;s Talk →</span>
