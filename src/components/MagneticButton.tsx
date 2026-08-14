@@ -17,7 +17,7 @@ export function MagneticButton({
   href,
   onClick,
   ariaLabel,
-  strength = 0.35,
+  strength = 0.28,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement>(null)
   const setCursor = useAppStore((s) => s.setCursor)
@@ -26,15 +26,19 @@ export function MagneticButton({
 
   const onMove = (e: React.MouseEvent) => {
     if (isMobile || reducedMotion || !ref.current) return
-    const rect = ref.current.getBoundingClientRect()
+    const el = ref.current
+    const rect = el.getBoundingClientRect()
     const x = e.clientX - rect.left - rect.width / 2
     const y = e.clientY - rect.top - rect.height / 2
-    ref.current.style.transform = `translate(${x * strength}px, ${y * strength}px)`
+    el.style.transition = 'none'
+    el.style.transform = `translate3d(${x * strength}px, ${y * strength}px, 0)`
   }
 
   const onLeave = () => {
     if (!ref.current) return
-    ref.current.style.transform = 'translate(0, 0)'
+    const el = ref.current
+    el.style.transition = 'transform 0.18s cubic-bezier(0.25, 1, 0.5, 1)'
+    el.style.transform = 'translate3d(0, 0, 0)'
     setCursor('default')
   }
 
@@ -46,7 +50,7 @@ export function MagneticButton({
     onClick?.()
   }
 
-  const sharedClass = `magnetic-hit transition-transform duration-300 ease-out-expo ${className}`
+  const sharedClass = `magnetic-hit will-change-transform ${className}`
 
   if (href) {
     const external = href.startsWith('http') || href.endsWith('.pdf')
