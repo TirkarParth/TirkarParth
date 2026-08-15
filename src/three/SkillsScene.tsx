@@ -1,18 +1,19 @@
 import { Suspense, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { skills } from '@/data/content'
+import { skills, type Skill } from '@/data/skills'
 import { useAppStore } from '@/store/useAppStore'
 import { getDPR, lerp } from '@/utils/device'
+import { SkillIcon } from './SkillIcon'
 
 function SkillOrb({
-  label,
+  skill,
   index,
   total,
   active,
   onHover,
 }: {
-  label: string
+  skill: Skill
   index: number
   total: number
   active: boolean
@@ -20,27 +21,27 @@ function SkillOrb({
 }) {
   const ref = useRef<THREE.Group>(null)
   const angle = (index / total) * Math.PI * 2
-  const radius = 2.4
+  const radius = 2.45
   const setCursor = useAppStore((s) => s.setCursor)
 
   useFrame((state) => {
     if (!ref.current) return
-    const t = state.clock.elapsedTime * 0.25
+    const t = state.clock.elapsedTime * 0.22
     const x = Math.cos(angle + t) * radius
     const z = Math.sin(angle + t) * radius
-    const y = Math.sin(t * 1.5 + index) * 0.35
+    const y = Math.sin(t * 1.4 + index) * 0.32
     ref.current.position.x = lerp(ref.current.position.x, x, 0.08)
     ref.current.position.y = lerp(ref.current.position.y, y, 0.08)
     ref.current.position.z = lerp(ref.current.position.z, z, 0.08)
-    const s = active ? 1.35 : 1
-    ref.current.scale.setScalar(lerp(ref.current.scale.x, s, 0.12))
+    const s = active ? 1.2 : 1
+    ref.current.scale.setScalar(lerp(ref.current.scale.x, s, 0.14))
   })
 
   return (
     <group
       ref={ref}
       onPointerEnter={() => {
-        onHover(label)
+        onHover(skill.label)
         setCursor('drag')
       }}
       onPointerLeave={() => {
@@ -48,42 +49,50 @@ function SkillOrb({
         setCursor('default')
       }}
     >
+      {/* Soft glow sphere behind the icon */}
       <mesh>
-        <sphereGeometry args={[0.2, 24, 24]} />
+        <sphereGeometry args={[0.28, 24, 24]} />
         <meshPhysicalMaterial
-          color={active ? '#c8a87a' : '#d0d0d6'}
-          metalness={0.85}
-          roughness={0.2}
-          clearcoat={1}
-          emissive={active ? '#c8a87a' : '#000000'}
-          emissiveIntensity={active ? 0.25 : 0}
-        />
-      </mesh>
-      <mesh position={[0, 0, 0.01]}>
-        <ringGeometry args={[0.26, 0.3, 32]} />
-        <meshBasicMaterial
-          color={active ? '#c8a87a' : '#ffffff'}
+          color={active ? skill.color : '#1a1a1f'}
+          metalness={0.55}
+          roughness={0.35}
+          clearcoat={0.8}
           transparent
-          opacity={active ? 0.55 : 0.12}
+          opacity={active ? 0.55 : 0.35}
+          emissive={active ? skill.color : '#111114'}
+          emissiveIntensity={active ? 0.45 : 0.08}
         />
       </mesh>
+
+      <SkillIcon
+        src={skill.icon}
+        label={skill.label}
+        active={active}
+        color={skill.color}
+      />
     </group>
   )
 }
 
-function SkillsWorld({ onHover, active }: { onHover: (l: string | null) => void; active: string | null }) {
+function SkillsWorld({
+  onHover,
+  active,
+}: {
+  onHover: (l: string | null) => void
+  active: string | null
+}) {
   const list = useMemo(() => skills.slice(0, 12), [])
 
   return (
     <>
       <color attach="background" args={['#0a0a0c']} />
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[3, 4, 2]} intensity={1.1} />
-      <directionalLight position={[-3, 1, -2]} intensity={0.4} color="#8ea0c8" />
+      <ambientLight intensity={0.55} />
+      <directionalLight position={[3, 4, 2]} intensity={1.15} />
+      <directionalLight position={[-3, 1, -2]} intensity={0.45} color="#8ea0c8" />
       {list.map((skill, i) => (
         <SkillOrb
           key={skill.id}
-          label={skill.label}
+          skill={skill}
           index={i}
           total={list.length}
           active={active === skill.label}
@@ -91,10 +100,29 @@ function SkillsWorld({ onHover, active }: { onHover: (l: string | null) => void;
         />
       ))}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[2.4, 0.004, 8, 100]} />
+        <torusGeometry args={[2.45, 0.004, 8, 100]} />
         <meshBasicMaterial color="#ffffff" transparent opacity={0.08} />
       </mesh>
     </>
+  )
+}
+
+function SkillsFallbackGrid() {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
+      {skills.map((s) => (
+        <div
+          key={s.id}
+          className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-5 text-center hover:border-accent/40 transition-colors"
+        >
+          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-graphite-900">
+            <img src={s.icon} alt="" width={28} height={28} className="object-contain" />
+          </div>
+          <p className="font-display text-lg">{s.label}</p>
+          <p className="mt-1 text-xs text-graphite-400 tracking-wide">{s.category}</p>
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -105,19 +133,7 @@ export function SkillsScene() {
   const [active, setActive] = useState<string | null>(null)
 
   if (!webglSupported || reducedMotion) {
-    return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
-        {skills.map((s) => (
-          <div
-            key={s.id}
-            className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-5 text-center hover:border-accent/40 transition-colors"
-          >
-            <p className="font-display text-lg">{s.label}</p>
-            <p className="mt-1 text-xs text-graphite-400 tracking-wide">{s.category}</p>
-          </div>
-        ))}
-      </div>
-    )
+    return <SkillsFallbackGrid />
   }
 
   return (
