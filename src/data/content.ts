@@ -42,22 +42,8 @@ export const aboutContent = {
   ],
 } as const
 
-export const skills = [
-  { id: 'react', label: 'React', category: 'Frontend' },
-  { id: 'next', label: 'Next.js', category: 'Frontend' },
-  { id: 'rn', label: 'React Native', category: 'Frontend' },
-  { id: 'ts', label: 'TypeScript', category: 'Frontend' },
-  { id: 'js', label: 'JavaScript', category: 'Frontend' },
-  { id: 'three', label: 'Three.js', category: 'Creative' },
-  { id: 'gsap', label: 'GSAP', category: 'Creative' },
-  { id: 'html', label: 'HTML / CSS', category: 'Frontend' },
-  { id: 'node', label: 'Node.js', category: 'Backend' },
-  { id: 'nest', label: 'NestJS', category: 'Backend' },
-  { id: 'mongo', label: 'MongoDB', category: 'Backend' },
-  { id: 'pg', label: 'PostgreSQL', category: 'Backend' },
-  { id: 'git', label: 'Git', category: 'Workflow' },
-  { id: 'uiux', label: 'UI / UX', category: 'Design' },
-] as const
+export { skills } from './skills'
+export type { Skill } from './skills'
 
 export type Project = {
   id: string
