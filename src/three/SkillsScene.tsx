@@ -22,7 +22,6 @@ function SkillOrb({
   const ref = useRef<THREE.Group>(null)
   const angle = (index / total) * Math.PI * 2
   const radius = 2.45
-  const setCursor = useAppStore((s) => s.setCursor)
 
   useFrame((state) => {
     if (!ref.current) return
@@ -38,17 +37,7 @@ function SkillOrb({
   })
 
   return (
-    <group
-      ref={ref}
-      onPointerEnter={() => {
-        onHover(skill.label)
-        setCursor('drag')
-      }}
-      onPointerLeave={() => {
-        onHover(null)
-        setCursor('default')
-      }}
-    >
+    <group ref={ref}>
       {/* Soft glow sphere behind the icon */}
       <mesh>
         <sphereGeometry args={[0.28, 24, 24]} />
@@ -69,6 +58,7 @@ function SkillOrb({
         label={skill.label}
         active={active}
         color={skill.color}
+        onHover={onHover}
       />
     </group>
   )
