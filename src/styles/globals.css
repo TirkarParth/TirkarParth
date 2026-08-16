@@ -124,6 +124,61 @@ button {
   justify-content: center;
 }
 
+.terminal-panel {
+  position: relative;
+  border-radius: 14px;
+  border: 1px solid rgba(200, 168, 122, 0.28);
+  background: linear-gradient(160deg, rgba(18, 18, 22, 0.92), rgba(8, 8, 10, 0.88));
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 24px 60px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+}
+
+.terminal-panel::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 10px;
+  border: 1px solid rgba(200, 168, 122, 0.12);
+  pointer-events: none;
+}
+
+.terminal-panel-glow {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 0 40px rgba(200, 168, 122, 0.08),
+    0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.accent-border-gold {
+  border-color: rgba(200, 168, 122, 0.45);
+}
+.accent-border-cyan {
+  border-color: rgba(94, 196, 210, 0.45);
+}
+.accent-border-violet {
+  border-color: rgba(176, 140, 210, 0.4);
+}
+.accent-border-mint {
+  border-color: rgba(140, 200, 170, 0.4);
+}
+
+.timeline-line {
+  background: linear-gradient(
+    180deg,
+    rgba(200, 168, 122, 0.15),
+    rgba(200, 168, 122, 0.85),
+    rgba(200, 168, 122, 0.15)
+  );
+  box-shadow: 0 0 12px rgba(200, 168, 122, 0.35);
+}
+
+.timeline-node {
+  box-shadow: 0 0 0 4px rgba(7, 7, 8, 1), 0 0 14px rgba(200, 168, 122, 0.55);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

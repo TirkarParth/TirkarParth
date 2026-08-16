@@ -8,6 +8,7 @@ import { Skills } from '@/sections/Skills'
 import { Projects } from '@/sections/Projects'
 import { ProjectDetail } from '@/sections/ProjectDetail'
 import { Journey } from '@/sections/Journey'
+import { Architecture } from '@/sections/Architecture'
 import { Services } from '@/sections/Services'
 import { Contact } from '@/sections/Contact'
 import { Footer } from '@/sections/Footer'
@@ -53,6 +54,7 @@ export default function App() {
         <About />
         <Skills />
         <Projects onOpen={setActiveProject} />
+        <Architecture />
         <Journey />
         <Services />
         <Contact />
