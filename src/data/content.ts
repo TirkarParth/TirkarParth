@@ -18,6 +18,7 @@ export const navLinks = [
   { label: 'Work', href: '#work' },
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Journey', href: '#journey' },
   { label: 'Contact', href: '#contact' },
 ] as const
 
@@ -44,6 +45,12 @@ export const aboutContent = {
 
 export { skills } from './skills'
 export type { Skill } from './skills'
+export { architecturePillars } from './architecture'
+export type { ArchitecturePillar } from './architecture'
+export { experiences } from './experience'
+export type { ExperienceItem } from './experience'
+export { getProjectMeta, projectMeta } from './projectMeta'
+export type { ProjectMeta, ProjectMetric } from './projectMeta'
 
 export type Project = {
   id: string
