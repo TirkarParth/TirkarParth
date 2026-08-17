@@ -33,13 +33,13 @@ export function Navigation() {
   return (
     <>
       <header
-        className={`fixed left-1/2 top-4 z-40 -translate-x-1/2 transition-all duration-500 ease-out-expo ${
-          scrolled ? 'w-[min(920px,calc(100%-1.5rem))]' : 'w-[min(1080px,calc(100%-1.5rem))]'
+        className={`fixed left-1/2 top-5 z-40 -translate-x-1/2 transition-all duration-500 ease-out-expo ${
+          scrolled ? 'w-[min(960px,calc(100%-1.75rem))]' : 'w-[min(1120px,calc(100%-1.75rem))]'
         }`}
       >
         <nav
-          className={`glass-nav flex items-center justify-between rounded-full px-4 md:px-6 transition-all duration-500 ${
-            scrolled ? 'h-12 md:h-14' : 'h-14 md:h-16'
+          className={`glass-nav flex items-center justify-between rounded-full px-5 md:px-8 transition-all duration-500 ${
+            scrolled ? 'h-14 md:h-[4.25rem]' : 'h-16 md:h-[4.75rem]'
           }`}
           aria-label="Primary"
         >
@@ -49,7 +49,7 @@ export function Navigation() {
               e.preventDefault()
               handleNav('#hero')
             }}
-            className="font-display text-lg font-medium tracking-tight"
+            className="font-display text-lg md:text-xl font-medium tracking-tight py-1"
             onMouseEnter={() => setCursor('link')}
             onMouseLeave={() => setCursor('default')}
             aria-label="Parth Tirkar — home"
@@ -57,7 +57,7 @@ export function Navigation() {
             PT
           </a>
 
-          <ul className="hidden md:flex items-center gap-8">
+          <ul className="hidden md:flex items-center gap-8 lg:gap-10">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
@@ -66,7 +66,7 @@ export function Navigation() {
                     e.preventDefault()
                     handleNav(link.href)
                   }}
-                  className="text-sm text-graphite-200 hover:text-white transition-colors duration-300"
+                  className="text-sm text-graphite-200 hover:text-white transition-colors duration-300 py-2"
                   onMouseEnter={() => setCursor('link')}
                   onMouseLeave={() => setCursor('default')}
                 >
@@ -80,7 +80,7 @@ export function Navigation() {
             href={siteConfig.resume}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:inline-flex text-xs tracking-[0.18em] uppercase text-accent hover:text-accent-soft transition-colors"
+            className="hidden md:inline-flex items-center rounded-full border border-accent/40 px-4 py-2 text-xs tracking-[0.18em] uppercase text-accent hover:bg-accent/10 hover:text-accent-soft transition-colors"
             onMouseEnter={() => setCursor('link')}
             onMouseLeave={() => setCursor('default')}
           >
