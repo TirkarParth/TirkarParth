@@ -136,14 +136,16 @@ button {
   -webkit-backdrop-filter: blur(18px) saturate(130%);
 }
 
-.project-stack-slot {
+.project-stack-viewport {
   position: relative;
-  min-height: 92vh;
+  height: min(58rem, calc(100vh - 6.5rem));
+  overflow: hidden;
 }
 
-.project-stack-pin {
-  position: sticky;
-  top: 6.25rem;
+.project-stack-card {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
 }
 
 .terminal-panel::before {
