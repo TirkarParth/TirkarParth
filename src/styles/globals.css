@@ -138,7 +138,7 @@ button {
 
 .project-stack-viewport {
   position: relative;
-  height: min(58rem, calc(100vh - 6.5rem));
+  height: min(62rem, calc(100vh - 7.5rem));
   overflow: hidden;
 }
 
@@ -151,8 +151,8 @@ button {
 .terminal-panel::before {
   content: '';
   position: absolute;
-  inset: 6px;
-  border-radius: 10px;
+  inset: 12px;
+  border-radius: 12px;
   border: 1px solid rgba(200, 168, 122, 0.12);
   pointer-events: none;
 }
