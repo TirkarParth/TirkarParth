@@ -22,22 +22,22 @@ function ProjectPanel({
   const primaryLink = project.liveUrl || project.githubUrl
 
   return (
-    <article className="terminal-panel terminal-panel-glow relative w-full p-5 md:p-8 lg:p-10">
-      <div className="relative z-[1] grid lg:grid-cols-12 gap-8 lg:gap-10">
+    <article className="terminal-panel terminal-panel-glow relative w-full p-7 md:p-10 lg:p-14">
+      <div className="relative z-[1] grid lg:grid-cols-12 gap-10 lg:gap-14">
         <div className="lg:col-span-7 flex flex-col">
-          <TerminalLabel className="mb-4">
+          <TerminalLabel className="mb-5">
             {project.number} {meta.category}
           </TerminalLabel>
 
-          <h3 className="font-display text-2xl md:text-4xl lg:text-[2.75rem] font-semibold tracking-tight uppercase text-accent leading-[1.05]">
+          <h3 className="font-display text-2xl md:text-4xl lg:text-[2.75rem] font-semibold tracking-tight uppercase text-accent leading-[1.08]">
             {project.title}
           </h3>
 
-          <p className="mt-5 max-w-2xl text-sm md:text-base text-graphite-200 leading-relaxed">
+          <p className="mt-6 max-w-2xl text-sm md:text-base text-graphite-200 leading-relaxed">
             {project.description}
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-7 flex flex-wrap gap-2.5">
             {project.technologies.map((tech) => (
               <TechBadge key={tech} label={tech} />
             ))}
@@ -65,9 +65,9 @@ function ProjectPanel({
         </div>
 
         <div className="lg:col-span-5 flex flex-col">
-          <TerminalLabel className="mb-4">Architecture Metrics</TerminalLabel>
+          <TerminalLabel className="mb-5">Architecture Metrics</TerminalLabel>
 
-          <div className="rounded-xl border border-white/10 bg-black/25 px-4 md:px-5">
+          <div className="rounded-xl border border-white/10 bg-black/25 px-5 md:px-6 py-1">
             {meta.metrics.map((metric) => (
               <MetricRow key={`${metric.label}-${metric.value}`} label={metric.label} value={metric.value} />
             ))}
@@ -134,7 +134,7 @@ export function Projects({ onOpen }: ProjectsProps) {
       defaults: { ease: 'none' },
       scrollTrigger: {
         trigger: pin,
-        start: 'top 5.5rem',
+        start: 'top 6.75rem',
         end: () => `+=${(cards.length - 1) * window.innerHeight * 0.95}`,
         pin: true,
         pinSpacing: true,
@@ -203,7 +203,7 @@ export function Projects({ onOpen }: ProjectsProps) {
               className={
                 reducedMotion
                   ? 'mb-8 last:mb-0'
-                  : 'project-stack-card will-change-transform'
+                  : 'project-stack-card will-change-transform p-1 md:p-2'
               }
             >
               <ProjectPanel project={project} onOpen={onOpen} />
