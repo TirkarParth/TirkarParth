@@ -10,67 +10,34 @@ import { useAppStore } from '@/store/useAppStore'
 
 gsap.registerPlugin(ScrollTrigger)
 
-function ProjectCard({
+function ProjectPanel({
   project,
   onOpen,
 }: {
   project: Project
   onOpen: (p: Project) => void
 }) {
-  const cardRef = useRef<HTMLElement>(null)
   const setCursor = useAppStore((s) => s.setCursor)
-  const reducedMotion = useAppStore((s) => s.reducedMotion)
   const meta = getProjectMeta(project)
-
-  useEffect(() => {
-    const el = cardRef.current
-    if (!el || reducedMotion) return
-
-    const tween = gsap.fromTo(
-      el,
-      { y: 48, opacity: 0.45, scale: 0.97 },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 90%',
-          end: 'top 45%',
-          scrub: true,
-        },
-      },
-    )
-
-    return () => {
-      tween.scrollTrigger?.kill()
-      tween.kill()
-    }
-  }, [reducedMotion])
-
   const primaryLink = project.liveUrl || project.githubUrl
 
   return (
-    <article
-      ref={cardRef}
-      className="terminal-panel terminal-panel-glow sticky top-24 md:top-28 w-full p-5 md:p-8 lg:p-10 mb-8 md:mb-12"
-    >
-      <div className="relative z-[1] grid lg:grid-cols-12 gap-8 lg:gap-10">
+    <article className="terminal-panel terminal-panel-glow relative w-full p-7 md:p-10 lg:p-14">
+      <div className="relative z-[1] grid lg:grid-cols-12 gap-10 lg:gap-14">
         <div className="lg:col-span-7 flex flex-col">
-          <TerminalLabel className="mb-4">
+          <TerminalLabel className="mb-5">
             {project.number} {meta.category}
           </TerminalLabel>
 
-          <h3 className="font-display text-2xl md:text-4xl lg:text-[2.75rem] font-semibold tracking-tight uppercase text-accent leading-[1.05]">
+          <h3 className="font-display text-2xl md:text-4xl lg:text-[2.75rem] font-semibold tracking-tight uppercase text-accent leading-[1.08]">
             {project.title}
           </h3>
 
-          <p className="mt-5 max-w-2xl text-sm md:text-base text-graphite-200 leading-relaxed">
+          <p className="mt-6 max-w-2xl text-sm md:text-base text-graphite-200 leading-relaxed">
             {project.description}
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-7 flex flex-wrap gap-2.5">
             {project.technologies.map((tech) => (
               <TechBadge key={tech} label={tech} />
             ))}
@@ -98,9 +65,9 @@ function ProjectCard({
         </div>
 
         <div className="lg:col-span-5 flex flex-col">
-          <TerminalLabel className="mb-4">Architecture Metrics</TerminalLabel>
+          <TerminalLabel className="mb-5">Architecture Metrics</TerminalLabel>
 
-          <div className="rounded-xl border border-white/10 bg-black/25 px-4 md:px-5">
+          <div className="rounded-xl border border-white/10 bg-black/25 px-5 md:px-6 py-1">
             {meta.metrics.map((metric) => (
               <MetricRow key={`${metric.label}-${metric.value}`} label={metric.label} value={metric.value} />
             ))}
@@ -141,6 +108,68 @@ type ProjectsProps = {
 }
 
 export function Projects({ onOpen }: ProjectsProps) {
+  const pinRef = useRef<HTMLDivElement>(null)
+  const cardsRef = useRef<HTMLDivElement[]>([])
+  const reducedMotion = useAppStore((s) => s.reducedMotion)
+
+  useEffect(() => {
+    const pin = pinRef.current
+    const cards = cardsRef.current.filter(Boolean)
+    if (!pin || cards.length < 2) return
+
+    if (reducedMotion) {
+      gsap.set(cards, { clearProps: 'all' })
+      return
+    }
+
+    cards.forEach((card, i) => {
+      gsap.set(card, {
+        yPercent: i === 0 ? 0 : 108,
+        scale: 1,
+        zIndex: i + 1,
+      })
+    })
+
+    const tl = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: {
+        trigger: pin,
+        start: 'top 6.75rem',
+        end: () => `+=${(cards.length - 1) * window.innerHeight * 0.95}`,
+        pin: true,
+        pinSpacing: true,
+        scrub: 0.45,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    })
+
+    cards.forEach((card, i) => {
+      if (i === 0) return
+      const prev = cards[i - 1]
+      const at = i - 1
+      tl.to(card, { yPercent: 0, duration: 1 }, at)
+      tl.to(
+        prev,
+        {
+          scale: 0.94,
+          yPercent: -3,
+          duration: 1,
+        },
+        at,
+      )
+    })
+
+    const refresh = () => ScrollTrigger.refresh()
+    window.addEventListener('resize', refresh)
+
+    return () => {
+      window.removeEventListener('resize', refresh)
+      tl.scrollTrigger?.kill()
+      tl.kill()
+    }
+  }, [reducedMotion])
+
   return (
     <section id="work" className="relative section-pad py-section">
       <div className="max-w-6xl mx-auto">
@@ -159,9 +188,26 @@ export function Projects({ onOpen }: ProjectsProps) {
           </p>
         </Reveal>
 
-        <div className="relative mt-14 md:mt-20 pb-[20vh]">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} onOpen={onOpen} />
+        <div
+          ref={pinRef}
+          className={`relative mt-14 md:mt-20 ${
+            reducedMotion ? '' : 'project-stack-viewport'
+          }`}
+        >
+          {projects.map((project, index) => (
+            <div
+              key={project.id}
+              ref={(el) => {
+                if (el) cardsRef.current[index] = el
+              }}
+              className={
+                reducedMotion
+                  ? 'mb-8 last:mb-0'
+                  : 'project-stack-card will-change-transform p-1 md:p-2'
+              }
+            >
+              <ProjectPanel project={project} onOpen={onOpen} />
+            </div>
           ))}
         </div>
       </div>
