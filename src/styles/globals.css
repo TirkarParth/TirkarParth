@@ -10,6 +10,7 @@
   --accent: #c8a87a;
   --border: rgba(255, 255, 255, 0.08);
   --glass: rgba(12, 12, 14, 0.55);
+  --header-clearance: 8.75rem;
 }
 
 * {
@@ -138,7 +139,8 @@ button {
 
 .project-stack-viewport {
   position: relative;
-  height: min(62rem, calc(100vh - 7.5rem));
+  height: calc(100vh - var(--header-clearance));
+  max-height: 58rem;
   overflow: hidden;
 }
 
