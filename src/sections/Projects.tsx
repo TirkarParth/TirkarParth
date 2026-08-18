@@ -10,6 +10,12 @@ import { useAppStore } from '@/store/useAppStore'
 
 gsap.registerPlugin(ScrollTrigger)
 
+function getHeaderClearance() {
+  const header = document.querySelector<HTMLElement>('header')
+  if (!header) return 152
+  return Math.ceil(header.getBoundingClientRect().bottom + 28)
+}
+
 function ProjectPanel({
   project,
   onOpen,
@@ -124,23 +130,33 @@ export function Projects({ onOpen }: ProjectsProps) {
 
     cards.forEach((card, i) => {
       gsap.set(card, {
-        yPercent: i === 0 ? 0 : 108,
+        yPercent: i === 0 ? 0 : 110,
         scale: 1,
         zIndex: i + 1,
       })
     })
 
+    const applyClearance = () => {
+      const clearance = getHeaderClearance()
+      document.documentElement.style.setProperty('--header-clearance', `${clearance}px`)
+      pin.style.height = `calc(100vh - ${clearance}px)`
+      return clearance
+    }
+
+    applyClearance()
+
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: {
         trigger: pin,
-        start: 'top 6.75rem',
+        start: () => `top ${getHeaderClearance()}px`,
         end: () => `+=${(cards.length - 1) * window.innerHeight * 0.95}`,
         pin: true,
         pinSpacing: true,
         scrub: 0.45,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        onRefresh: applyClearance,
       },
     })
 
@@ -152,15 +168,17 @@ export function Projects({ onOpen }: ProjectsProps) {
       tl.to(
         prev,
         {
-          scale: 0.94,
-          yPercent: -3,
+          scale: 0.96,
           duration: 1,
         },
         at,
       )
     })
 
-    const refresh = () => ScrollTrigger.refresh()
+    const refresh = () => {
+      applyClearance()
+      ScrollTrigger.refresh()
+    }
     window.addEventListener('resize', refresh)
 
     return () => {
@@ -171,7 +189,7 @@ export function Projects({ onOpen }: ProjectsProps) {
   }, [reducedMotion])
 
   return (
-    <section id="work" className="relative section-pad py-section">
+    <section id="work" className="relative section-pad py-section scroll-mt-[var(--header-clearance)]">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <p className="eyebrow mb-6">Portfolio</p>
