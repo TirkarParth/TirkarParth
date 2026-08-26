@@ -28,7 +28,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative section-pad py-section">
+    <section id="contact" className="relative section-pad py-section scroll-mt-[var(--header-clearance)]">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <p className="eyebrow mb-6">Contact</p>

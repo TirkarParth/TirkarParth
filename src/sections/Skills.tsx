@@ -7,7 +7,7 @@ const SkillsScene = lazy(() =>
 
 export function Skills() {
   return (
-    <section id="skills" className="relative section-pad py-section">
+    <section id="skills" className="relative section-pad py-section scroll-mt-[var(--header-clearance)]">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <p className="eyebrow mb-6">Capabilities</p>

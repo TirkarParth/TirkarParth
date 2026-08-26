@@ -6,7 +6,7 @@ export function Services() {
   const setCursor = useAppStore((s) => s.setCursor)
 
   return (
-    <section id="services" className="relative section-pad py-section">
+    <section id="services" className="relative section-pad py-section scroll-mt-[var(--header-clearance)]">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <p className="eyebrow mb-6">Services</p>

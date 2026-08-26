@@ -3,7 +3,7 @@ import { Reveal } from '@/components/Reveal'
 
 export function About() {
   return (
-    <section id="about" className="relative section-pad py-section">
+    <section id="about" className="relative section-pad py-section scroll-mt-[var(--header-clearance)]">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <p className="eyebrow mb-6">{aboutContent.eyebrow}</p>

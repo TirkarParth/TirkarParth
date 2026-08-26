@@ -14,7 +14,7 @@ export function Architecture() {
   const setCursor = useAppStore((s) => s.setCursor)
 
   return (
-    <section id="architecture" className="relative section-pad py-section">
+    <section id="architecture" className="relative section-pad py-section scroll-mt-[var(--header-clearance)]">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <p className="eyebrow mb-6">Systems</p>
