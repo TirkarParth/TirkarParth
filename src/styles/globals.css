@@ -208,6 +208,15 @@ button {
   min-height: calc(100vh - var(--header-clearance) - 2rem);
 }
 
+.journey-track-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.journey-track-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
