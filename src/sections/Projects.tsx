@@ -7,14 +7,9 @@ import { TerminalLabel } from '@/components/TerminalLabel'
 import { TechBadge } from '@/components/TechBadge'
 import { MetricRow } from '@/components/MetricRow'
 import { useAppStore } from '@/store/useAppStore'
+import { applyHeaderClearance, getHeaderClearance } from '@/utils/layout'
 
 gsap.registerPlugin(ScrollTrigger)
-
-function getHeaderClearance() {
-  const header = document.querySelector<HTMLElement>('header')
-  if (!header) return 152
-  return Math.ceil(header.getBoundingClientRect().bottom + 28)
-}
 
 function ProjectPanel({
   project,
@@ -136,27 +131,26 @@ export function Projects({ onOpen }: ProjectsProps) {
       })
     })
 
-    const applyClearance = () => {
-      const clearance = getHeaderClearance()
-      document.documentElement.style.setProperty('--header-clearance', `${clearance}px`)
+    const syncClearance = () => {
+      const clearance = applyHeaderClearance(28)
       pin.style.height = `calc(100vh - ${clearance}px)`
       return clearance
     }
 
-    applyClearance()
+    syncClearance()
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: {
         trigger: pin,
-        start: () => `top ${getHeaderClearance()}px`,
+        start: () => `top ${getHeaderClearance(28)}px`,
         end: () => `+=${(cards.length - 1) * window.innerHeight * 0.95}`,
         pin: true,
         pinSpacing: true,
         scrub: 0.45,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        onRefresh: applyClearance,
+        onRefresh: syncClearance,
       },
     })
 
@@ -176,7 +170,7 @@ export function Projects({ onOpen }: ProjectsProps) {
     })
 
     const refresh = () => {
-      applyClearance()
+      syncClearance()
       ScrollTrigger.refresh()
     }
     window.addEventListener('resize', refresh)
