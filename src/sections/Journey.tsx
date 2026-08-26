@@ -1,26 +1,23 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { experiences } from '@/data/experience'
 import { Reveal } from '@/components/Reveal'
 import { TechBadge } from '@/components/TechBadge'
 import { useAppStore } from '@/store/useAppStore'
+import { applyHeaderClearance, getHeaderClearance } from '@/utils/layout'
 
 gsap.registerPlugin(ScrollTrigger)
-
-function getHeaderClearance() {
-  const header = document.querySelector<HTMLElement>('header')
-  if (!header) return 152
-  return Math.ceil(header.getBoundingClientRect().bottom + 24)
-}
 
 export function Journey() {
   const sectionRef = useRef<HTMLElement>(null)
   const pinRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
+  const progressRef = useRef<HTMLDivElement>(null)
   const setCursor = useAppStore((s) => s.setCursor)
   const reducedMotion = useAppStore((s) => s.reducedMotion)
   const isMobile = useAppStore((s) => s.isMobile)
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -32,6 +29,8 @@ export function Journey() {
       gsap.set(track, { clearProps: 'transform' })
       return
     }
+
+    applyHeaderClearance()
 
     const getTravel = () => Math.max(0, track.scrollWidth - window.innerWidth + 80)
 
@@ -47,10 +46,20 @@ export function Journey() {
         pinSpacing: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          setProgress(self.progress)
+          if (progressRef.current) {
+            progressRef.current.style.transform = `scaleX(${self.progress})`
+          }
+        },
+        onRefresh: () => applyHeaderClearance(),
       },
     })
 
-    const onResize = () => ScrollTrigger.refresh()
+    const onResize = () => {
+      applyHeaderClearance()
+      ScrollTrigger.refresh()
+    }
     window.addEventListener('resize', onResize)
 
     return () => {
@@ -93,7 +102,6 @@ export function Journey() {
           useNativeScroll ? '' : 'journey-pin-frame'
         }`}
       >
-        {/* Horizontal rail through year markers */}
         <div
           className="pointer-events-none absolute left-0 right-0 top-[0.7rem] md:top-[0.75rem] px-5 md:px-16"
           aria-hidden
@@ -105,16 +113,14 @@ export function Journey() {
           ref={trackRef}
           className={`relative flex items-stretch gap-6 md:gap-10 px-5 md:px-16 will-change-transform ${
             useNativeScroll
-              ? 'overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin'
+              ? 'overflow-x-auto pb-4 snap-x snap-mandatory journey-track-scroll'
               : 'w-max'
           }`}
         >
           {experiences.map((item, i) => (
             <article
               key={item.id}
-              className={`relative shrink-0 w-[min(84vw,22rem)] md:w-[28rem] snap-center ${
-                useNativeScroll ? '' : ''
-              }`}
+              className="relative shrink-0 w-[min(84vw,22rem)] md:w-[28rem] snap-center"
               onMouseEnter={() => setCursor('link')}
               onMouseLeave={() => setCursor('default')}
             >
@@ -153,9 +159,23 @@ export function Journey() {
         </div>
 
         {!useNativeScroll && (
-          <p className="mt-8 px-5 md:px-16 text-[10px] tracking-[0.28em] uppercase text-graphite-500">
-            Scroll to move through the timeline →
-          </p>
+          <div className="mt-10 px-5 md:px-16">
+            <div className="flex items-center justify-between gap-4 mb-3">
+              <p className="text-[10px] tracking-[0.28em] uppercase text-graphite-500">
+                Scroll to move through the timeline →
+              </p>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-accent tabular-nums">
+                {Math.round(progress * 100)}%
+              </p>
+            </div>
+            <div className="h-px w-full overflow-hidden bg-white/10">
+              <div
+                ref={progressRef}
+                className="h-full origin-left bg-accent"
+                style={{ transform: 'scaleX(0)' }}
+              />
+            </div>
+          </div>
         )}
       </div>
     </section>
